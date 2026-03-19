@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid celebration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&family=Bitcount+Double&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Reem Kufi', sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(120,170,255,0.25), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255,215,120,0.15), transparent 40%),
+        linear-gradient(135deg,#020617,#0f172a,#1e293b);
+    min-height:100vh;
+    overflow:hidden;
+    color:#fff;
+    position:relative;
+}
+
+.moon{
+    position:fixed;
+    top:12%;
+    left:8%;
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 40%, #ffffff, #f1f5f9 60%, transparent 65%);
+    filter: drop-shadow(0 0 25px rgba(255,255,255,0.6));
+    transform: rotate(-25deg);
+    -webkit-mask-image: radial-gradient(circle at 65% 50%, transparent 55%, black 56%);
+    mask-image: radial-gradient(circle at 65% 50%, transparent 55%, black 56%);
+    z-index:5;
+}
+
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite;z-index:0}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+
+.balloon{
+    position:absolute;
+    width:45px;height:60px;
+    border-radius:50% 50% 45% 45%;
+    opacity:0.75;
+    animation:floatFromBottom linear infinite;
+    z-index:2;
+}
+.balloon::after{
+    content:"";
+    position:absolute;
+    bottom:-30px;
+    left:50%;
+    width:2px;height:30px;
+    background:linear-gradient(#fff,#aaa);
+    transform:translateX(-50%);
+}
+.balloon.red{background:radial-gradient(circle at 30% 25%,#fff8,transparent 40%),linear-gradient(145deg,#ff6b6b,#c0392b)}
+.balloon.blue{background:radial-gradient(circle at 30% 25%,#fff8,transparent 40%),linear-gradient(145deg,#74b9ff,#0984e3)}
+.balloon.green{background:radial-gradient(circle at 30% 25%,#fff8,transparent 40%),linear-gradient(145deg,#55efc4,#00b894)}
+.balloon.yellow{background:radial-gradient(circle at 30% 25%,#fff8,transparent 40%),linear-gradient(145deg,#ffeaa7,#fdcb6e)}
+@keyframes floatFromBottom{0%{transform:translateY(110vh) rotate(0deg)}25%{transform:translateY(70vh) rotate(3deg)}50%{transform:translateY(40vh) rotate(-2deg)}75%{transform:translateY(15vh) rotate(2deg)}100%{transform:translateY(-10vh) rotate(-5deg)}}
+
+.container{
+    position:relative;
+    z-index:10;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    padding:20px;
+}
+
+h1{
+    font-size:clamp(3rem,10vw,6rem);
+    font-family:'Reem Kufi', sans-serif;
+    font-style:italic;
+    background:linear-gradient(45deg,#ffd700,#fff5cc,#ffd700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 25px rgba(255,215,0,0.9);
+    letter-spacing:4px;
+    line-height:1.5;
+    z-index:10;
+    position:relative;
+}
+
+.personal-wish{
+    font-size:1.8rem;
+    margin:10px 0 5px;
+    font-family:'Bitcount Double', cursive;
+    color:#a8e6cf;
+    z-index:10;
+    position:relative;
+}
+
+.subtext{
+    opacity:.9;
+    max-width:80%;
+    font-family:'Bitcount Double', cursive;
+    z-index:10;
+    position:relative;
+    font-size:1.1rem;
+}
+
+.firework{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    z-index:11;
+}
+
+/*wch jabk hna ;)
+
+/* Responsive Adjustments */
+@media(max-width:768px){
+    h1{font-size:clamp(2.2rem,12vw,5rem); letter-spacing:3px;}
+    .personal-wish{font-size:1.5rem;}
+    .subtext{font-size:1rem;}
+    .moon{width:120px;height:120px; top:10%; left:5%;}
+    .balloon{width:35px;height:45px;}
+    .balloon::after{height:25px;}
+}
+@media(max-width:480px){
+    h1{font-size:clamp(1.8rem,14vw,4rem); letter-spacing:2px;}
+    .personal-wish{font-size:1.2rem;}
+    .subtext{font-size:.9rem;}
+    .moon{width:90px;height:90px; top:8%; left:5%;}
+    .balloon{width:28px;height:36px;}
+    .balloon::after{height:20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="moon"></div>
+<div id="stars"></div>
+
+<div class="container">
+    <h1>عيد مبارك</h1>
+    <div class="personal-wish">Mouneim wishes you a blessed Eid :)</div>
+    <p class="subtext">May Allah fill your days with happiness and peace</p>
+</div>
+
+<script>
+//stars :
+for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.width=s.style.height=(Math.random()*2+1)+'px';
+    document.getElementById('stars').appendChild(s);
+}
+
+//balloons :
+function createBalloon(){
+    const b=document.createElement('div');
+    const colors=['red','blue','green','yellow'];
+    b.className='balloon '+colors[Math.floor(Math.random()*colors.length)];
+    b.style.left=Math.random()*100+'vw';
+    b.style.top='110vh';
+    b.style.animationDuration=(Math.random()*7+7)+'s';
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),22000);
+}
+setInterval(createBalloon,1000);
+
+//firework :
+function launchFirework(){
+    const startX = Math.random() * window.innerWidth;
+    const startY = window.innerHeight;
+    const particleCount = 40 + Math.floor(Math.random()*20);
+    const hue = Math.floor(Math.random()*360);
+
+    const rocket = document.createElement('div');
+    rocket.className='firework';
+    rocket.style.left=startX+'px';
+    rocket.style.top=startY+'px';
+    rocket.style.width=rocket.style.height='6px';
+    rocket.style.background='white';
+    document.body.appendChild(rocket);
+
+    let progress=0;
+    const riseInterval=setInterval(()=>{
+        progress +=0.008;
+        rocket.style.transform = `translateY(${-progress*window.innerHeight*0.7}px)`;
+        if(progress>=1){
+            clearInterval(riseInterval);
+            rocket.remove();
+            const particles=[];
+            for(let i=0;i<particleCount;i++){
+                const p=document.createElement('div');
+                p.className='firework';
+                p.style.left=startX+'px';
+                p.style.top=(startY - window.innerHeight*0.7)+'px';
+                const angle=Math.random()*Math.PI*2;
+                const speed=1.2 + Math.random()*2.5;
+                const size=2 + Math.random()*2.5;
+                const pHue=(hue + Math.random()*60)%360;
+                p.style.width=p.style.height=size+'px';
+                p.style.background=`hsl(${pHue},100%,70%)`;
+                document.body.appendChild(p);
+                particles.push({el:p, angle:angle, speed:speed, vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed, gravity:0.05, opacity:1});
+            }
+            let explosionProgress=0;
+            const explodeInterval=setInterval(()=>{
+                explosionProgress +=0.02;
+                particles.forEach(p=>{
+                    p.vy += p.gravity;
+                    const dx=p.vx*explosionProgress*25;
+                    const dy=p.vy*explosionProgress*25;
+                    p.el.style.transform=`translate(${dx}px,${dy}px) scale(${1+explosionProgress*0.5})`;
+                    p.opacity -=0.02;
+                    p.el.style.opacity=Math.max(p.opacity,0);
+                    if(p.opacity<=0 && p.el.parentNode) p.el.remove();
+                });
+                if(explosionProgress>=1){
+                    clearInterval(explodeInterval);
+                }
+            },16);
+        }
+    },16);
+}
+
+setInterval(launchFirework,1500);
+for(let i=0;i<3;i++){setTimeout(()=>launchFirework(),i*800);}
+</script>
+
+</body>
+</html>
